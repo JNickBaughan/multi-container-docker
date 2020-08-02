@@ -9,7 +9,7 @@ script:
   - docker run -e CI=true jnickbaughan/docker-test npm test
 
 after_success:
-  - docker build -t jnickbaughan/multi-frontend ./client
+  - docker build -t jnickbaughan/multi-frontend ./frontend
   - docker build -t jnickbaughan/multi-nginx ./nginx
   - docker build -t jnickbaughan/multi-server ./server
   - docker build -t jnickbaughan/multi-worker ./worker
