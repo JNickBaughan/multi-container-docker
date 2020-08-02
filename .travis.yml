@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t jnickbaughan/docker-test -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run jnickbaughan/docker-test npm test -- --coverage
+
+after_success:
+  - docker build -t jnickbaughan/multi-frontend ./client
+  - docker build -t jnickbaughan/multi-nginx ./nginx
+  - docker build -t jnickbaughan/multi-server ./server
+  - docker build -t jnickbaughan/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push jnickbaughan/multi-frontend
+  - docker push jnickbaughan/multi-nginx
+  - docker push jnickbaughan/multi-server
+  - docker push jnickbaughan/multi-worker
