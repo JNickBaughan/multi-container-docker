@@ -9,14 +9,6 @@
       "memory": 128
     },
     {
-      "name": "nginx",
-      "image": "jnickbaughan/multi-nginx",
-      "essential": true,
-      "portMappings": [{ "hostPort": 80, "containerPort": 80 }],
-      "links": ["frontend", "server"],
-      "memory": 128
-    },
-    {
       "name": "server",
       "image": "jnickbaughan/multi-server",
       "hostname": "api",
@@ -28,6 +20,14 @@
       "image": "jnickbaughan/multi-worker",
       "hostname": "worker",
       "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "nginx",
+      "image": "jnickbaughan/multi-nginx",
+      "essential": true,
+      "portMappings": [{ "hostPort": 80, "containerPort": 80 }],
+      "links": ["frontend", "server"],
       "memory": 128
     }
   ]
