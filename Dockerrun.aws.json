@@ -1,0 +1,33 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "frontend",
+      "image": "jnickbaughan/multi-frontend",
+      "hostname": "frontend",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "jnickbaughan/multi-nginx",
+      "essential": true,
+      "portMappings": [{ "hostPort": 80, "containerPort": 80 }],
+      "links": ["frontend", "server"]
+    },
+    {
+      "name": "server",
+      "image": "jnickbaughan/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "jnickbaughan/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    }
+  ]
+}
+// access key - AKIA5KRQGGO2OCMIQFGE
+// sercret key - pdN5Sd4WTAvcNPk9vuVJXqn4YkppgcGjac2BxcQH
+// user - multi-docker-deployer
